@@ -1,0 +1,124 @@
+# 报告里告诉用户「是什么、该怎么做」的固定文案，按 verdict × scene 组织，不让大模型生成。
+# 改动需要人工逐条审阅。约束（tests/test_summary.py 会检查）：
+#   - 除 disclaimer 外，任何文案不得出现「安全」「放心」一类的保证；
+#   - low_risk 的标题固定是「暂未发现明显诈骗特征」。
+# 查找顺序：<verdict>.<scene> → <verdict>.default。
+
+scene_names:
+  brushing_rebate: 刷单返利
+  investment: 虚假投资理财
+  impersonation_service: 冒充客服
+  impersonation_acquaintance: 冒充熟人或领导
+  deepfake: AI 换脸拟声
+  other: 其他类型
+  none: 未识别
+
+headline:
+  high_risk:
+    brushing_rebate: 这很可能是刷单返利诈骗
+    investment: 这很可能是虚假投资理财诈骗
+    impersonation_service: 这很可能是冒充客服的诈骗
+    impersonation_acquaintance: 这很可能是冒充熟人或领导的诈骗
+    deepfake: 对方可能在用 AI 换脸或拟声冒充熟人
+    default: 这很可能是诈骗
+  suspicious:
+    brushing_rebate: 有刷单返利诈骗的迹象，请先核实
+    investment: 有虚假投资理财诈骗的迹象，请先核实
+    impersonation_service: 有冒充客服诈骗的迹象，请先核实
+    impersonation_acquaintance: 有冒充熟人或领导诈骗的迹象，请先核实
+    deepfake: 音视频可能是合成的，请先核实对方身份
+    default: 有可疑之处，请先核实
+  low_risk:
+    default: 暂未发现明显诈骗特征
+  inconclusive:
+    default: 内容太少，暂时无法判断
+
+# 没有大模型的描述（或它不合格）时用的 summary
+summary:
+  high_risk:
+    default: 对话里出现了多处诈骗中常见的话术，详见下方证据。
+  suspicious:
+    default: 对话里有一些诈骗中常见的说法，但信号还不足以下结论。
+  low_risk:
+    default: 暂未在这段内容里发现明显的诈骗特征。
+  inconclusive:
+    default: 可分析的文字太少，请多截几屏聊天记录再试。
+
+# 只用规则和链接时追加在 summary 后面
+rules_only_note: 大模型暂时不可用，本次只用规则和链接做了检查，结论可能不完整。
+
+# 没有大模型的预测（或它不合格）时用的 next_move；low_risk 和 inconclusive 不给
+next_move:
+  brushing_rebate: 接下来通常会以连单、卡单、操作失误为由要求继续垫付，之后无法提现。
+  investment: 接下来通常会以账户冻结、要交解冻费或税费为由继续要钱，本金无法取出。
+  impersonation_service: 接下来通常会要求下载会议软件、共享屏幕或报出验证码，再转走资金。
+  impersonation_acquaintance: 接下来通常会以急用为由催你转账到陌生账户。
+  deepfake: 接下来通常会以急用为由要求转账。
+  other: 接下来通常会要求转账、充值或提供验证码。
+  none: ""
+
+advice:
+  high_risk:
+    brushing_rebate:
+      - 不要垫付或充值任何资金，所谓返利和佣金拿不回来
+      - 不要安装对方发来的应用，不要点陌生链接
+      - 已经转账请立即拨打 110 报警，并联系银行
+    investment:
+      - 不要向对方指定的平台充值，也不要为「解冻」「提现」再交任何费用
+      - 投资理财只通过持牌金融机构的官方渠道办理
+      - 已经转账请立即拨打 110 报警，并联系银行
+    impersonation_service:
+      - 挂断后通过官方 App 或官方客服电话核实，不要用对方给的号码和链接
+      - 不要下载会议软件、不要共享屏幕、不要报出验证码
+      - 已经转账请立即拨打 110 报警，并联系银行
+    impersonation_acquaintance:
+      - 用你原来存的号码打电话或当面确认，不要只在聊天里确认
+      - 不要向陌生账户转账，哪怕对方说很急
+      - 已经转账请立即拨打 110 报警，并联系银行
+    deepfake:
+      - 挂断后用你原来存的号码回拨，或当面确认对方身份
+      - 视频和语音都可能被伪造，不要凭声音和长相就转账
+      - 已经转账请立即拨打 110 报警，并联系银行
+    default:
+      - 不要转账、垫付或充值，不要报出验证码
+      - 不要安装对方发来的应用或点击陌生链接
+      - 已经转账请立即拨打 110 报警，并联系银行
+  suspicious:
+    deepfake:
+      - 挂断后用你原来存的号码回拨，确认对方身份后再说
+      - 不要凭声音和长相就转账
+      - 拿不准时拨打 96110 咨询
+    default:
+      - 涉及转账、垫付、充值时先停下来，通过官方渠道或当面核实
+      - 不要安装对方发来的应用或点击陌生链接，不要报出验证码
+      - 拿不准时拨打 96110 咨询
+  low_risk:
+    default:
+      - 涉及转账、垫付或下载应用时，仍请先通过可靠渠道核实对方身份
+      - 对方后来提出新的要求时，可以再鉴定一次
+      - 拿不准时拨打 96110 咨询
+  inconclusive:
+    default:
+      - 多截几屏聊天记录再鉴定，尤其是对方要求你做什么的部分
+      - 涉及转账、垫付或下载应用时，先通过可靠渠道核实
+      - 拿不准时拨打 96110 咨询
+
+actions:
+  high_risk:
+    - {type: dial, label: 拨打反诈专线 96110, value: "96110"}
+    - {type: dial, label: 已经转账？立即报警 110, value: "110"}
+  default:
+    - {type: dial, label: 拨打反诈专线 96110, value: "96110"}
+
+# 大模型的说明不合格时，以及规则命中的证据，用这里的一句话说明
+intent_explanations:
+  high_return_promise: 承诺高收益或稳赚不赔，是诈骗常见的诱饵。
+  small_rebate: 先给小额返利取得信任，是刷单返利诈骗的典型开头。
+  induce_download: 要求下载陌生应用、打开链接或转到别的软件，脱离正规平台的保护。
+  request_payment: 要求转账、垫付、充值或交各种费用，是诈骗的最终目的。
+  urgency: 制造紧迫感，让你来不及核实。
+  secrecy: 要求对家人朋友保密，防止你被提醒。
+  identity_packaging: 包装身份或资质来取得信任。
+  block_verification: 阻止你向银行、警方或家人核实。
+
+disclaimer: 本结果由算法生成，仅供参考。未发现风险不代表安全。

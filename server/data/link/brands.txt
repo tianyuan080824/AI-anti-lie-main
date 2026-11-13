@@ -1,0 +1,39 @@
+# 品牌官方域名表：每行一个品牌，空格分隔它的官方可注册域名。用来判断 brand_lookalike（仿冒品牌）：
+# 链接的域名和这些品牌很像、但又不是这里列出的官方域名时命中。这里列的是「真的」，不是黑名单。
+# 品牌名取各域名的主体部分（icbc.com.cn → icbc）。很短的品牌名（3 个字符及以下）只做精确匹配。
+# 增删时请核对官方网站，写错会让正常官网被判成仿冒。
+
+# 银行
+icbc.com.cn icbc.com
+ccb.com
+abchina.com
+boc.cn bankofchina.com
+bankcomm.com
+cmbchina.com
+psbc.com
+citicbank.com
+spdb.com.cn
+cib.com.cn
+cmbc.com.cn
+cebbank.com
+pingan.com
+# 支付与清算
+unionpay.com 95516.com
+alipay.com
+tenpay.com
+wechat.com qq.com
+paypal.com
+# 电商与生活服务
+taobao.com
+tmall.com
+jd.com
+pinduoduo.com yangkeduo.com
+meituan.com
+douyin.com
+ctrip.com
+apple.com
+# 证券与基金
+eastmoney.com
+htsc.com.cn
+citics.com
+gtja.com

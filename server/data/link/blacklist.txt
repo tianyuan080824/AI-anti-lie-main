@@ -1,0 +1,8 @@
+# 本地黑名单：每行一个域名或 IP，# 后面是注释。不区分大小写，国际化域名可以直接写中文。
+# 域名按「本身或其子域名」匹配：写 scam-demo.example 会同时命中 dl.scam-demo.example。
+# 只放保留的示例域名（RFC 2606 / 6761：.example .test .invalid）和团队确认过的演示域名。
+# 不要放真实存在的正常网站。怎么加演示域名见同目录 README.md。
+
+scam-demo.example
+fake-bank-demo.test
+phishing-demo.invalid

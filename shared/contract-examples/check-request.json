@@ -1,0 +1,41 @@
+{
+  "client": {
+    "app_version": "0.1.0",
+    "os_version": "14",
+    "device_model": "Xiaomi 14",
+    "rules_version": "2026.11.1"
+  },
+  "source": "floating_ball",
+  "items": [
+    {
+      "type": "chat",
+      "origin": "screenshot_ocr",
+      "lines": [
+        {
+          "line_id": "0-0",
+          "speaker": "other",
+          "text": "日结兼职，点赞截图一单3元"
+        },
+        {
+          "line_id": "0-1",
+          "speaker": "self",
+          "text": "怎么做"
+        },
+        {
+          "line_id": "0-2",
+          "speaker": "other",
+          "text": "先垫付<AMOUNT:200>返<AMOUNT:260>，下载这个 https://t.example.cn/a1"
+        }
+      ]
+    },
+    {
+      "type": "url",
+      "url": "https://t.example.cn/a1",
+      "origin": "qrcode"
+    },
+    {
+      "type": "audio",
+      "media_id": "m_01JCXYZ"
+    }
+  ]
+}

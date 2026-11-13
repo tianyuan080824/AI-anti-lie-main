@@ -1,0 +1,51 @@
+# 打分权重（契约第 6 节）。改动后跑 `uv run pytest tests/test_scenarios.py tests/test_summary.py` 确认「必须通过的场景」仍然通过。
+#
+# 风险概率 p = sigmoid(bias + 意图 + 规则 + 链接 + 相似案例 + 深伪)，risk_score = round(100·p)。
+# 硬性约束把结论压到 suspicious 时，p 同时压到 capped_p，保证 risk_score / 100 和结论一致（评测按它算）。
+version: "2026.11.1"
+
+bias: -3.5          # 没有任何信号时 p ≈ 0.029，落在 low_risk
+
+thresholds:
+  high_risk: 0.60    # p ≥ 0.60
+  low_risk: 0.05     # p ≤ 0.05
+capped_p: 0.59       # 被硬性约束压到 suspicious 时 p 的上限
+
+# 只计通过逐字回查的大模型证据。同一意图第一次计满权重，之后每多一条加 repeat_bonus，额外部分最多 repeat_cap。
+intents:
+  weights:
+    high_return_promise: 1.2
+    small_rebate: 1.0
+    induce_download: 1.0
+    request_payment: 1.5
+    urgency: 0.8
+    secrecy: 1.0
+    identity_packaging: 0.6
+    block_verification: 1.2
+  repeat_bonus: 0.2
+  repeat_cap: 0.4
+
+# 规则命中按规则 id 去重后求和。大模型可用时规则和大模型的意图说的是同一批话，打折计入。
+rules:
+  factor_with_llm: 0.4
+  factor_rules_only: 1.0
+  cap: 3.0
+
+# 取所有链接里贡献最大的一条。命中黑名单另加 blacklist_bonus。
+links:
+  risk:
+    high: 2.5
+    medium: 1.0
+    low: 0.0
+    unknown: 0.0
+  blacklist_bonus: 2.0
+
+# 取相似度最高的一条：weight × (similarity − floor) / (1 − floor)，低于 floor 不计。
+cases:
+  weight: 1.2
+  floor: 0.5
+
+# 只计 likely_synthetic：weight × spoof_score，封顶 cap。深伪单独不足以给 high_risk（另有硬性约束）。
+deepfake:
+  weight: 1.0
+  cap: 0.8

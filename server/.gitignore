@@ -1,0 +1,17 @@
+# 运行时数据：数据库、日志、临时媒体
+var/
+# 本机密钥
+.env
+# 虚拟环境和 uv 下载缓存
+.venv/
+.uv-cache/
+# 下载的模型权重（P1）
+models/
+*.onnx
+*.pth
+*.pt
+# Python 杂项
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/

@@ -1,0 +1,65 @@
+[project]
+name = "antifraud-server"
+version = "0.1.0"
+description = "一键鉴诈服务（AI 智能反诈系统 方案 B），跑在团队笔记本上的 FastAPI 服务"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+# P0 用到的全部依赖一次声明齐（含链接体检、案例检索要用的）。
+# 第二阶段的并行会话不改本文件和 uv.lock；缺依赖请找话术/汇总会话（本文件的维护者）。
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn>=0.32",
+    "pydantic>=2.12",        # Field(exclude_if=...) 需要 2.12+
+    "pydantic-settings>=2.6",
+    "sqlalchemy[asyncio]>=2.0.36",
+    "aiosqlite>=0.20",
+    "httpx>=0.27",           # 短链展开、RDAP、外部情报
+    "openai>=1.54",          # AsyncOpenAI，指向千问/智谱的 OpenAI 兼容接口（对话 + 向量）
+    "tldextract>=5.1",       # 取可注册域名（只用随包快照，不联网）
+    "rapidfuzz>=3.10",       # 仿冒品牌域名相似度
+    "numpy>=2.1",            # 案例向量的余弦相似度
+    "pyyaml>=6.0",           # scoring/weights.yaml
+]
+
+[project.optional-dependencies]
+# P1 的大依赖：媒体上传、图片 OCR、语音转写和合成语音检测、视频抽帧。P0 不安装。
+# 安装：uv sync --extra media
+media = [
+    "python-multipart>=0.0.12",
+    "pillow>=11.0",          # deepfake/probe.py 直接用它认图片格式
+    "rapidocr>=3.0",
+    "onnxruntime>=1.19",
+    "torch>=2.5",
+    "torchaudio>=2.5",
+    "funasr>=1.1",
+    "opencv-python-headless>=4.10",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "respx>=0.21",
+]
+
+[tool.uv]
+# 不把服务本身打成包：所有命令都在 server/ 目录下用 `uv run python -m ...` 执行。
+package = false
+# 自动下载 Python 走 GitHub，会场网络会超时；只用本机已装的 Python 3.12。
+python-downloads = "never"
+# 下载缓存留在工作区内（不进 git）。
+cache-dir = ".uv-cache"
+
+[[tool.uv.index]]
+name = "tuna"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+default = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+markers = [
+    "live: 需要真实大模型密钥和网络，设置 RUN_LIVE=1 才运行",
+]

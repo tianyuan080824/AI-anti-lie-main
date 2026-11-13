@@ -1,0 +1,32 @@
+{
+  "check_id": "c_01JCXYZ",
+  "status": "running",
+  "poll_after_ms": 800,
+  "analyzers": [
+    {
+      "name": "script",
+      "status": "done",
+      "elapsed_ms": 2100
+    },
+    {
+      "name": "link",
+      "status": "running"
+    },
+    {
+      "name": "cases",
+      "status": "done",
+      "elapsed_ms": 420
+    },
+    {
+      "name": "deepfake",
+      "status": "skipped"
+    },
+    {
+      "name": "summary",
+      "status": "pending"
+    }
+  ],
+  "derived_lines": [],
+  "report": null,
+  "error": null
+}

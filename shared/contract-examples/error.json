@@ -1,0 +1,8 @@
+{
+  "error": {
+    "code": "RATE_LIMITED",
+    "message": "请求太频繁，请稍后再试",
+    "retryable": true,
+    "trace_id": "t_01JCXYZ"
+  }
+}

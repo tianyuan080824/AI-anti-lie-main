@@ -1,0 +1,74 @@
+{
+  "verdict": "high_risk",
+  "risk_score": 87,
+  "confidence": "high",
+  "scene": "brushing_rebate",
+  "stage": "s4_invest",
+  "headline": "这很可能是刷单返利诈骗",
+  "summary": "对方先用小额返利取得信任，现在要求你垫付资金并下载陌生应用。",
+  "next_move": "接下来通常会以连单、卡单为由要求继续充值，之后无法提现。",
+  "evidence": [
+    {
+      "line_id": "0-2",
+      "quote": "先垫付<AMOUNT:200>返<AMOUNT:260>",
+      "intent": "small_rebate",
+      "source": "llm",
+      "explanation": "要求先垫付再返利，是刷单诈骗的核心话术。"
+    }
+  ],
+  "links": [
+    {
+      "url": "https://t.example.cn/a1",
+      "final_url": "https://dl.example-app.cc/app.apk",
+      "registrable_domain": "example-app.cc",
+      "origin": "qrcode",
+      "risk": "high",
+      "reasons": [
+        "short_link",
+        "domain_age_lt_30d",
+        "apk_direct_link"
+      ],
+      "domain_age_days": 6,
+      "intel": {
+        "provider": "local",
+        "verdict": "unknown"
+      }
+    }
+  ],
+  "media": [
+    {
+      "media_id": "m_01JCXYZ",
+      "kind": "audio",
+      "label": "likely_synthetic",
+      "spoof_score": 0.71,
+      "note": "合成语音检测仅供参考"
+    }
+  ],
+  "similar_cases": [
+    {
+      "case_id": "case_0042",
+      "title": "点赞返利后被要求垫付连单",
+      "scene": "brushing_rebate",
+      "snippet": "受害人先收到 3 元返利，随后被拉入群聊下载应用并垫付……",
+      "source_name": "公开通报来源名称",
+      "source_url": "https://example.gov.cn/notice/123",
+      "published_at": "2026-05-12",
+      "similarity": 0.84,
+      "synthetic": false
+    }
+  ],
+  "advice": [
+    "不要垫付或充值任何资金",
+    "不要安装对方发来的应用",
+    "已经转账请立即拨打 110 并联系银行"
+  ],
+  "actions": [
+    {
+      "type": "dial",
+      "label": "拨打反诈专线 96110",
+      "value": "96110"
+    }
+  ],
+  "degraded": [],
+  "disclaimer": "本结果由算法生成，仅供参考。未发现风险不代表安全。"
+}

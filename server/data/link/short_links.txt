@@ -1,0 +1,21 @@
+# 公开短链服务的域名：每行一个，按「本身或其子域名」匹配。命中只给弱特征 short_link。
+# 只收任何人都能生成的通用短链服务；淘宝、京东、B 站、抖音这类只能指向自家内容的分享短链不收，
+# 否则正常的商品和视频分享都会带上风险特征。
+
+t.cn
+url.cn
+dwz.cn
+suo.im
+bit.ly
+tinyurl.com
+t.co
+goo.gl
+is.gd
+v.gd
+ow.ly
+cutt.ly
+rebrand.ly
+rb.gy
+t.ly
+s.id
+shorturl.at

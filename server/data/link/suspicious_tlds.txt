@@ -1,0 +1,35 @@
+# 冷门或滥用较多的顶级域：每行一个（不带点）。命中只给弱特征 suspicious_tld。
+# 这是本项目按经验整理的启发式名单，不是权威统计；团队可以按评测结果增删。
+
+top
+xyz
+vip
+cc
+icu
+cyou
+club
+shop
+buzz
+work
+wang
+site
+online
+live
+fun
+ink
+click
+link
+loan
+win
+bid
+cfd
+sbs
+bond
+rest
+monster
+pw
+tk
+ml
+ga
+cf
+gq

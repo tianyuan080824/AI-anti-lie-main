@@ -1,0 +1,29 @@
+# 本机工具、生成过程与缓存
+.claude/
+.codex/
+.agents/
+.DS_Store
+output/
+tmp/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+.uv-cache/
+.gradle/
+**/build/
+
+# 本机配置和密钥；只提交模板
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# 运行数据及下载的模型
+server/var/
+server/models/
+*.onnx
+*.pth
+*.pt

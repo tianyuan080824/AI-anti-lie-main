@@ -1,0 +1,35 @@
+{
+  "version": "2026.11.1",
+  "normalize": {
+    "phrases": {
+      "薇信": "微信",
+      "威信": "微信",
+      "V信": "微信",
+      "扣扣": "QQ"
+    },
+    "strip": [
+      "\u200b",
+      "\u200c",
+      "\u200d",
+      "\ufeff"
+    ]
+  },
+  "rules": [
+    {
+      "id": "BR-003",
+      "pattern": "垫付.{0,10}返",
+      "scene": "brushing_rebate",
+      "intent": "small_rebate",
+      "weight": 1.2,
+      "title": "垫付返利"
+    },
+    {
+      "id": "IV-001",
+      "pattern": "稳赚不赔|保本保息|内部消息",
+      "scene": "investment",
+      "intent": "high_return_promise",
+      "weight": 1.0,
+      "title": "承诺高收益"
+    }
+  ]
+}
